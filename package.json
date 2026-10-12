@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "postinstall": "npx --yes prisma generate --schema=prisma/schema.prisma",
+    "postinstall": "node -e \"const fs=require('fs'),cp=require('child_process');const s=['prisma/schema.prisma','../../prisma/schema.prisma','../prisma/schema.prisma'].find(p=>fs.existsSync(p));if(s){cp.execSync('npx --yes prisma generate --schema='+s,{stdio:'inherit'})}\"",
     "dev:web": "npm run dev --workspace=apps/web",
     "build:web": "npm run build --workspace=apps/web",
     "dev:miniapp": "npm run dev --workspace=apps/miniapp",
