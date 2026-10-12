@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "postinstall": "prisma generate",
+    "postinstall": "npx --yes prisma generate",
     "dev:web": "npm run dev --workspace=apps/web",
     "build:web": "npm run build --workspace=apps/web",
     "dev:miniapp": "npm run dev --workspace=apps/miniapp",
