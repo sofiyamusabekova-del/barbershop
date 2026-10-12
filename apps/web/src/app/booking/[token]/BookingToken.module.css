@@ -1,0 +1,314 @@
+.pageWrapper {
+  min-height: 100vh;
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  padding-bottom: 80px;
+}
+
+.header {
+  height: 72px;
+  border-bottom: 1px solid var(--steel-border);
+  background: rgba(15, 16, 19, 0.85);
+  backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 8px 12px;
+  border: 1px solid var(--steel-border);
+  border-radius: var(--radius-sharp);
+}
+
+.headerTitle {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.phoneLink {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.ticketCard {
+  background: var(--bg-surface);
+  border: 1px dashed var(--steel-border-strong);
+  border-radius: var(--radius-card);
+  padding: 36px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+}
+
+.ticketHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ticketTitle {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+.statusBadge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 12px;
+  border-radius: var(--radius-tag);
+}
+
+.statusConfirmed {
+  background: rgba(52, 199, 89, 0.15);
+  border: 1px solid rgba(52, 199, 89, 0.4);
+  color: #4ade80;
+}
+
+.statusCancelled {
+  background: rgba(166, 50, 50, 0.15);
+  border: 1px solid var(--accent-ruby);
+  color: #ff9e9e;
+}
+
+.divider {
+  height: 1px;
+  border-top: 1px dashed var(--steel-border-strong);
+  margin: 24px 0;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 540px) {
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detailLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.detailValue {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.detailValueHighlight {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-ruby);
+  font-family: var(--font-mono);
+}
+
+.detailPrice {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.servicesBox {
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sharp);
+  border: 1px solid var(--steel-border);
+}
+
+.servicesBoxTitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.serviceRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.serviceRow:last-child {
+  border-bottom: none;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.cancelBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: var(--radius-sharp);
+  border: 1px solid rgba(166, 50, 50, 0.4);
+  background: rgba(166, 50, 50, 0.1);
+  color: #ff9e9e;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-cinematic);
+}
+
+.cancelBtn:hover {
+  background: rgba(166, 50, 50, 0.2);
+  border-color: var(--accent-ruby);
+}
+
+.reschedulePanel {
+  margin-top: 28px;
+  padding: 24px;
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--steel-border);
+}
+
+.rescheduleTitle {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.dateInput {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  margin-top: 6px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sharp);
+  background: var(--bg-base);
+  border: 1px solid var(--steel-border);
+  color: var(--text-main);
+  font-family: inherit;
+}
+
+.slotsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.slotBtn {
+  padding: 8px;
+  border-radius: var(--radius-sharp);
+  background: var(--bg-base);
+  border: 1px solid var(--steel-border);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.slotActive {
+  background: var(--accent-ruby) !important;
+  color: #fff !important;
+  border-color: var(--accent-ruby) !important;
+}
+
+.rescheduleActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.alertError {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sharp);
+  background: rgba(166, 50, 50, 0.15);
+  border: 1px solid var(--accent-ruby);
+  color: #ff9e9e;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.alertSuccess {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sharp);
+  background: rgba(52, 199, 89, 0.15);
+  border: 1px solid rgba(52, 199, 89, 0.4);
+  color: #4ade80;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.loadingWrapper {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--steel-border);
+  border-top-color: var(--accent-ruby);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

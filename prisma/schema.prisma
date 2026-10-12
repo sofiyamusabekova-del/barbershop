@@ -1,0 +1,241 @@
+// datasource db: PostgreSQL (Supabase)
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+// 1. Услуги
+model Service {
+  id              String           @id @default(uuid())
+  name            String
+  description     String
+  durationMin     Int              @map("duration_min")
+  price           Int
+  category        String           @default("стрижки")
+  isActive        Boolean          @default(true) @map("is_active")
+  sortOrder       Int              @default(0) @map("sort_order")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  barberServices  BarberService[]
+  bookingServices BookingService[]
+
+  @@map("services")
+}
+
+// 2. Барберы
+model Barber {
+  id              String           @id @default(uuid())
+  name            String
+  role            String           @default("Barber")
+  photoUrl        String           @map("photo_url")
+  bio             String
+  experienceYears Int              @map("experience_years")
+  telegramChatId  BigInt?          @map("telegram_chat_id")
+  isActive        Boolean          @default(true) @map("is_active")
+  sortOrder       Int              @default(0) @map("sort_order")
+  createdAt       DateTime         @default(now()) @map("created_at")
+  updatedAt       DateTime         @updatedAt @map("updated_at")
+
+  portfolioItems  PortfolioItem[]
+  barberServices  BarberService[]
+  workingHours    WorkingHour[]
+  breaks          Break[]
+  timeOffs        TimeOff[]
+  bookings        Booking[]
+  reviews         Review[]
+
+  @@map("barbers")
+}
+
+// 3. Портфолио мастеров
+model PortfolioItem {
+  id        String   @id @default(uuid())
+  barberId  String   @map("barber_id")
+  imageUrl  String   @map("image_url")
+  title     String?
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  barber    Barber   @relation(fields: [barberId], references: [id], onDelete: Cascade)
+
+  @@map("portfolio_items")
+}
+
+// 4. Связка барбер-услуга (персональная длительность/цена)
+model BarberService {
+  barberId    String   @map("barber_id")
+  serviceId   String   @map("service_id")
+  durationMin Int?     @map("duration_min")
+  price       Int?
+  isEnabled   Boolean  @default(true) @map("is_enabled")
+
+  barber      Barber   @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@id([barberId, serviceId])
+  @@map("barber_services")
+}
+
+// 5. График работы барбера (по дням недели 0-6: 0 - Воскресенье, 1 - Понедельник...)
+model WorkingHour {
+  id        String @id @default(uuid())
+  barberId  String @map("barber_id")
+  weekday   Int    // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  startTime String @map("start_time") // HH:mm (например "10:00")
+  endTime   String @map("end_time")   // HH:mm (например "22:00")
+
+  barber    Barber @relation(fields: [barberId], references: [id], onDelete: Cascade)
+
+  @@unique([barberId, weekday])
+  @@map("working_hours")
+}
+
+// 6. Перерывы барбера в рабочие дни
+model Break {
+  id        String @id @default(uuid())
+  barberId  String @map("barber_id")
+  weekday   Int    // 0..6
+  startTime String @map("start_time") // HH:mm
+  endTime   String @map("end_time")   // HH:mm
+
+  barber    Barber @relation(fields: [barberId], references: [id], onDelete: Cascade)
+
+  @@map("breaks")
+}
+
+// 7. Выходные, больничные или закрытие всего салона
+model TimeOff {
+  id        String    @id @default(uuid())
+  barberId  String?   @map("barber_id") // null = весь барбершоп не работает
+  startsAt  DateTime  @map("starts_at")
+  endsAt    DateTime  @map("ends_at")
+  type      String    @default("day_off") // vacation | sick | holiday | maintenance
+  note      String?
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  barber    Barber?   @relation(fields: [barberId], references: [id], onDelete: Cascade)
+
+  @@map("time_off")
+}
+
+// 8. Клиенты
+model Client {
+  id             String    @id @default(uuid())
+  name           String
+  phone          String    @unique
+  telegramId     BigInt?   @unique @map("telegram_id")
+  telegramChatId BigInt?   @map("telegram_chat_id")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  bookings       Booking[]
+  reviews        Review[]
+
+  @@map("clients")
+}
+
+// 9. Бронирования
+enum BookingStatus {
+  confirmed
+  completed
+  cancelled
+  no_show
+}
+
+enum BookingSource {
+  web
+  telegram
+  admin
+}
+
+model Booking {
+  id                  String         @id @default(uuid())
+  clientId            String         @map("client_id")
+  barberId            String         @map("barber_id")
+  startsAt            DateTime       @map("starts_at")
+  endsAt              DateTime       @map("ends_at")
+  totalPrice          Int            @map("total_price")
+  totalDurationMin    Int            @map("total_duration_min")
+  status              BookingStatus  @default(confirmed)
+  source              BookingSource  @default(web)
+  manageToken         String         @unique @default(uuid()) @map("manage_token")
+  comment             String?
+  createdAt           DateTime       @default(now()) @map("created_at")
+  updatedAt           DateTime       @updatedAt @map("updated_at")
+
+  // Служебные таймстампы для нотификаций
+  reminderDaySentAt   DateTime?      @map("reminder_day_sent_at")
+  reminder30mSentAt   DateTime?      @map("reminder_30m_sent_at")
+  reviewRequestedAt   DateTime?      @map("review_requested_at")
+  autoCompletedAt     DateTime?      @map("auto_completed_at")
+
+  client              Client         @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  barber              Barber         @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  bookingServices     BookingService[]
+  review              Review?
+
+  @@index([barberId, startsAt])
+  @@index([status, startsAt])
+  @@map("bookings")
+}
+
+// 10. Снимок услуг в бронировании
+model BookingService {
+  id          String   @id @default(uuid())
+  bookingId   String   @map("booking_id")
+  serviceId   String   @map("service_id")
+  name        String
+  durationMin Int      @map("duration_min")
+  price       Int
+
+  booking     Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+
+  @@map("booking_services")
+}
+
+// 11. Отзывы
+model Review {
+  id        String   @id @default(uuid())
+  bookingId String   @unique @map("booking_id")
+  barberId  String   @map("barber_id")
+  clientId  String   @map("client_id")
+  rating    Int
+  comment   String?
+  isPublic  Boolean  @default(false) @map("is_public")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  booking   Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  barber    Barber   @relation(fields: [barberId], references: [id], onDelete: Cascade)
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+// 12. Системные настройки (key-value)
+model Setting {
+  key         String   @id
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("settings")
+}
+
+// 13. Администраторы
+model AdminUser {
+  id             String   @id @default(uuid())
+  login          String   @unique
+  passwordHash   String   @map("password_hash")
+  telegramChatId BigInt?  @map("telegram_chat_id")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@map("admin_users")
+}

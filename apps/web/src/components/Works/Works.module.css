@@ -1,0 +1,104 @@
+.worksSection {
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--steel-border);
+  border-bottom: 1px solid var(--steel-border);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+}
+
+.worksGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.workCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.imageBox {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  overflow: hidden;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-sharp);
+  border: 1px solid var(--steel-border);
+}
+
+.aspectSquare .imageBox {
+  height: 380px;
+}
+
+.workImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: contrast(105%) grayscale(20%);
+  transition: transform 0.6s var(--ease-cinematic), filter 0.6s var(--ease-cinematic);
+}
+
+.workCard:hover .workImg {
+  transform: scale(1.05);
+  filter: contrast(110%) grayscale(0%);
+}
+
+.workIndex {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-main);
+  background-color: rgba(15, 16, 19, 0.85);
+  padding: 4px 10px;
+  border: 1px solid var(--steel-border);
+}
+
+.workInfo {
+  padding-top: 16px;
+}
+
+.workTitle {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.workStyle {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.workBarber {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-ruby);
+}
+
+@media (max-width: 1080px) {
+  .worksGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .worksGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .imageBox {
+    height: 340px;
+  }
+}

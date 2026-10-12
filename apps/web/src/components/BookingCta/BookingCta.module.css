@@ -1,0 +1,86 @@
+.ctaSection {
+  padding: 100px 0;
+  background-color: var(--bg-base);
+}
+
+.ctaCard {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--steel-border-strong);
+  border-radius: var(--radius-sharp);
+  padding: 96px 48px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Subtle corner accent */
+.ctaCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--accent-ruby);
+}
+
+.ctaContent {
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ctaHeading {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6vw, 76px);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  margin-bottom: 24px;
+}
+
+.ctaDescription {
+  font-size: 17px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  max-width: 560px;
+  margin-bottom: 44px;
+}
+
+.ctaActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.ctaMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .ctaCard {
+    padding: 56px 20px;
+  }
+
+  .ctaActions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ctaActions a {
+    width: 100%;
+  }
+}

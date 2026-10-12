@@ -1,0 +1,209 @@
+.heroWrapper {
+  position: relative;
+  padding-top: clamp(110px, 15vh, 150px);
+  padding-bottom: 80px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* Metadata Top Row */
+.heroMetaStrip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--steel-border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.metaLocation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.metaIcon {
+  color: var(--accent-ruby);
+}
+
+.metaAddress,
+.metaTime {
+  color: var(--text-muted);
+}
+
+/* Massive Headline */
+.titleBlock {
+  padding: 10px 0 20px;
+}
+
+.mainTitle {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 7.5vw, 102px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+}
+
+.line {
+  color: var(--text-main);
+}
+
+.lineSecond {
+  color: var(--text-dim);
+  text-indent: clamp(20px, 8vw, 120px);
+}
+
+/* Signature Cinematic Frame */
+.cinematicFrame {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 58vh, 680px);
+  overflow: hidden;
+  border-radius: var(--radius-sharp);
+  border: 1px solid var(--steel-border);
+  transition: transform 0.15s ease-out, filter 0.15s ease-out;
+  will-change: transform;
+}
+
+.imageMask {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.heroImage,
+.heroVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  display: block;
+}
+
+.cinematicOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 16, 19, 0.2) 0%, rgba(15, 16, 19, 0.85) 100%);
+  pointer-events: none;
+}
+
+.frameBadge {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: rgba(15, 16, 19, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--steel-border);
+  border-radius: var(--radius-sharp);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-main);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.frameDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+.frameCaption {
+  position: absolute;
+  bottom: 28px;
+  left: 32px;
+  right: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.captionHeader {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.captionSub {
+  font-size: 14px;
+  color: var(--text-dim);
+  max-width: 440px;
+}
+
+/* Lower row */
+.heroLowerRow {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  align-items: center;
+  gap: 48px;
+  padding-top: 10px;
+}
+
+.manifestoSnippet {
+  font-size: 17px;
+  color: var(--text-dim);
+  line-height: 1.65;
+  border-left: 2px solid var(--accent-ruby);
+  padding-left: 24px;
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .heroLowerRow {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .heroActions {
+    justify-content: flex-start;
+  }
+
+  .lineSecond {
+    text-indent: 0;
+  }
+
+  .metaAddress,
+  .metaTime {
+    display: none;
+  }
+
+  .captionSub {
+    display: none;
+  }
+}

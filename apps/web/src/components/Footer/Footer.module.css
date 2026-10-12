@@ -1,0 +1,120 @@
+.footer {
+  background-color: #0b0c0e;
+  border-top: 1px solid var(--steel-border);
+  padding: 80px 0 36px;
+}
+
+.footerInner {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.topRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.3fr;
+  gap: 48px;
+}
+
+.brandBlock {
+  max-width: 400px;
+}
+
+.brandTitle {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.brandCity {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent-ruby);
+  font-weight: 600;
+}
+
+.brandCoordinates {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.brandDesc {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.colTitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-ruby);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+}
+
+.linksList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.linksList a {
+  font-size: 14px;
+  color: var(--text-dim);
+  transition: color var(--duration-normal) var(--ease-cinematic);
+}
+
+.linksList a:hover {
+  color: var(--text-main);
+}
+
+.contactsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contactItem {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.phoneLink {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 10px;
+  transition: color var(--duration-normal) var(--ease-cinematic);
+}
+
+.phoneLink:hover {
+  color: var(--accent-ruby);
+}
+
+.bottomRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--steel-border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+@media (max-width: 860px) {
+  .topRow {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
